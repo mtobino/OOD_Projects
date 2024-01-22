@@ -1,3 +1,5 @@
+package Project_1.Fox_and_Rabbit_EC;
+
 /**
  * Represent a location in a rectangular grid.
  * 

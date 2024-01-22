@@ -1,3 +1,5 @@
+package Fox_and_Rabbit_EC;
+
 /**
  * Extra Credit/Project 0
  *

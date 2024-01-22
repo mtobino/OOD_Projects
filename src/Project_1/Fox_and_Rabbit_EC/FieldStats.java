@@ -1,4 +1,5 @@
-import java.awt.Color;
+package Project_1.Fox_and_Rabbit_EC;
+
 import java.util.HashMap;
 
 /**
@@ -17,7 +18,7 @@ public class FieldStats
     private boolean countsValid;
 
     /**
-     * Construct a FieldStats object.
+     * Construct a Fox_and_Rabbit_EC.FieldStats object.
      */
     public FieldStats()
     {

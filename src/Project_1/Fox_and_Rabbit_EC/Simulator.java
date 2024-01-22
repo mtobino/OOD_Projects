@@ -1,8 +1,10 @@
-import java.util.Random;
-import java.util.List;
+package Project_1.Fox_and_Rabbit_EC;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.awt.Color;
+import java.util.List;
+import java.util.Random;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -98,7 +100,7 @@ public class Simulator
         step++;
 
         // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<>();        
+        List<Animal> newAnimals = new ArrayList<>();
         // Let all rabbits act.
         for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
             Animal animal = it.next();
