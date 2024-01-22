@@ -1,4 +1,4 @@
-package Project_1.Fox_and_Rabbit_EC;
+package Project_1;
 
 import java.util.Iterator;
 import java.util.List;
