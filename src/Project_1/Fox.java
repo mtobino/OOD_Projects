@@ -27,13 +27,13 @@ public class Fox extends Animal
     // number of steps a fox can go before it has to eat again.
     private static final int RABBIT_FOOD_VALUE = 9;
     // A shared random number generator to control breeding.
-    private static final Random rand = Randomizer.getRandom();
-    
+    protected static final Random rand = Randomizer.getRandom();
+
     // Individual characteristics (instance fields).
     // The fox's age.
-    private int age;
+    protected int age;
     // The fox's food level, which is increased by eating rabbits.
-    private int foodLevel;
+    protected int foodLevel;
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -55,7 +55,13 @@ public class Fox extends Animal
             foodLevel = RABBIT_FOOD_VALUE;
         }
     }
-    
+
+    public Fox(Fox fox) {
+        super(fox.getField(), fox.getLocation());
+        age = fox.getAge();
+        foodLevel = fox.getFoodLevel();
+    }
+
     /**
      * This is what the fox does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
@@ -123,7 +129,7 @@ public class Fox extends Animal
             Object animal = field.getObjectAt(where);
             if(animal instanceof Rabbit) {
                 Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) { 
+                if(rabbit.isAlive()) {
                     rabbit.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
                     return where;
@@ -173,4 +179,13 @@ public class Fox extends Animal
     {
         return age >= BREEDING_AGE;
     }
+
+    public int getFoodLevel() {
+        return foodLevel;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
 }

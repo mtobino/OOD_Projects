@@ -63,6 +63,8 @@ public class Simulator
         view = new SimulatorView(depth, width);
         view.setColor(Rabbit.class, Color.ORANGE);
         view.setColor(Fox.class, Color.BLUE);
+        view.setColor(InfectedRabbit.class, Color.MAGENTA);
+        view.setColor(InfectedFox.class, Color.RED);
         
         // Setup a valid starting point.
         reset();
@@ -140,7 +142,7 @@ public class Simulator
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location);
+                    Fox fox = new Fox(true, field, location);;
                     animals.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {

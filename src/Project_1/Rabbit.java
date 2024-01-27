@@ -23,7 +23,7 @@ public class Rabbit extends Animal
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
     // A shared random number generator to control breeding.
-    private static final Random rand = Randomizer.getRandom();
+    protected static final Random rand = Randomizer.getRandom();
     
     // Individual characteristics (instance fields).
     
@@ -46,7 +46,12 @@ public class Rabbit extends Animal
             age = rand.nextInt(MAX_AGE);
         }
     }
-    
+
+    public Rabbit(Rabbit infectedRabbit) {
+        super(infectedRabbit.getField(), infectedRabbit.getLocation());
+        age = infectedRabbit.age;
+    }
+
     /**
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
