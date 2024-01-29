@@ -4,74 +4,63 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-/**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
- */
-public class Fox extends Animal
-{
+public class Coronavirus extends Animal{
+
     // Characteristics shared by all foxes (class variables).
 
-    // The age at which a fox can start to breed.
-    private static final int BREEDING_AGE = 15;
-    // The age to which a fox can live.
-    private static final int MAX_AGE = 150;
-    // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.08;
+    // The age at which a virus can start to breed.
+    private static final int BREEDING_AGE = 10;
+    // The age to which a virus can live.
+    private static final int MAX_AGE = 20;
+    // The likelihood of a virus breeding.
+    private static final double BREEDING_PROBABILITY = 0.16;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
-    // The food value of a single rabbit. In effect, this is the
+    private static final int MAX_LITTER_SIZE = 1;
+    // The food value of a single animal. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 9;
+    private static final int ANIMAL_FOOD_LEVEL = 4;
     // A shared random number generator to control breeding.
     protected static final Random rand = Randomizer.getRandom();
 
     // Individual characteristics (instance fields).
-    // The fox's age.
+    // The virus' age.
     private int age;
-    // The fox's food level, which is increased by eating rabbits.
+    // The virus' food level, which is increased by eating animals.
     private int foodLevel;
-
     /**
-     * Create a fox. A fox can be created as a new born (age zero
-     * and not hungry) or with a random age and food level.
-     * 
-     * @param randomAge If true, the fox will have random age and hunger level.
-     * @param field The field currently occupied.
+     * Create a new virus at location in field.
+     *
+     * @param field    The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location)
-    {
+    public Coronavirus(boolean randomAge, Field field, Location location) {
         super(field, location);
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
-            foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
+            foodLevel = rand.nextInt(ANIMAL_FOOD_LEVEL);
         }
         else {
             age = 0;
-            foodLevel = RABBIT_FOOD_VALUE;
+            foodLevel = ANIMAL_FOOD_LEVEL;
         }
     }
+
 
     /**
      * This is what the fox does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
-     * @param field The field currently occupied.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newViruses A list to return newly born foxes.
      */
-    public void act(List<Animal> newFoxes)
+    public void act(List<Animal> newViruses)
     {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            giveBirth(newFoxes);            
+            giveBirth(newViruses);
             // Move towards a source of food if found.
             Location newLocation = findFood();
-            if(newLocation == null) { 
+            if(newLocation == null) {
                 // No food found - try to move to a free location.
                 newLocation = getField().freeAdjacentLocation(getLocation());
             }
@@ -96,7 +85,7 @@ public class Fox extends Animal
             setDead();
         }
     }
-    
+
     /**
      * Make this fox more hungry. This could result in the fox's death.
      */
@@ -107,7 +96,7 @@ public class Fox extends Animal
             setDead();
         }
     }
-    
+
     /**
      * Look for rabbits adjacent to the current location.
      * Only the first live rabbit is eaten.
@@ -121,24 +110,24 @@ public class Fox extends Animal
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) {
-                    rabbit.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE;
+            if(animal instanceof Rabbit || animal instanceof Fox) {
+                Animal food = (Animal) animal;
+                if(food.isAlive()) {
+                    food.setDead();
+                    foodLevel = ANIMAL_FOOD_LEVEL;
                     return where;
                 }
             }
         }
         return null;
     }
-    
+
     /**
      * Check whether or not this fox is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newViruses A list to return newly born foxes.
      */
-    private void giveBirth(List<Animal> newFoxes)
+    private void giveBirth(List<Animal> newViruses)
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -147,11 +136,11 @@ public class Fox extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
-            newFoxes.add(young);
+            Coronavirus young = new Coronavirus(false, field, loc);
+            newViruses.add(young);
         }
     }
-        
+
     /**
      * Generate a number representing the number of births,
      * if it can breed.
@@ -173,5 +162,4 @@ public class Fox extends Animal
     {
         return age >= BREEDING_AGE;
     }
-
 }
