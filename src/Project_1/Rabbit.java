@@ -47,11 +47,6 @@ public class Rabbit extends Animal
         }
     }
 
-    public Rabbit(Rabbit infectedRabbit) {
-        super(infectedRabbit.getField(), infectedRabbit.getLocation());
-        age = infectedRabbit.age;
-    }
-
     /**
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
