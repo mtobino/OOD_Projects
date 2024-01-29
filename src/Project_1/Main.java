@@ -1,7 +1,7 @@
 package Project_1;
 
 /**
- * Extra Credit/Project 0
+ * Project 1/COVID
  *
  * @author Matthew Tobino ~ 1/17/24
  */
