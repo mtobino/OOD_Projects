@@ -43,9 +43,9 @@ public class Fox extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location)
+    public Fox(boolean randomAge, Field field, Location location, VirusStatus virusStatus)
     {
-        super(field, location);
+        super(field, location, virusStatus);
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
@@ -60,14 +60,16 @@ public class Fox extends Animal
      * This is what the fox does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
-     * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
     public void act(List<Animal> newFoxes)
     {
         incrementAge();
         incrementHunger();
+        virusStatus.incrementSeverity(this);
         if(isAlive()) {
+            virusStatus.cure(this);
+            virusStatus.infect(getField(), getLocation());
             giveBirth(newFoxes);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
@@ -126,6 +128,9 @@ public class Fox extends Animal
                 if(rabbit.isAlive()) {
                     rabbit.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
+                    if(rabbit.getVirusStatus().getClass().equals(ActiveVirus.class)){
+                        setVirusStatus(new ActiveVirus());
+                    }
                     return where;
                 }
             }
@@ -147,7 +152,7 @@ public class Fox extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
+            Fox young = new Fox(false, field, loc, new NoVirus());
             newFoxes.add(young);
         }
     }

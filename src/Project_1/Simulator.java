@@ -64,8 +64,13 @@ public class Simulator
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
         view.setColor(new ColorKey(Rabbit.class, NoVirus.class), Color.ORANGE);
+        view.setColor(new ColorKey(Rabbit.class, ImmuneVirus.class), Color.YELLOW);
+        view.setColor(new ColorKey(Rabbit.class, ActiveVirus.class), Color.RED);
         view.setColor(new ColorKey(Fox.class, NoVirus.class), Color.BLUE);
+        view.setColor(new ColorKey(Fox.class, ImmuneVirus.class), Color.CYAN);
+        view.setColor(new ColorKey(Fox.class, ActiveVirus.class), Color.magenta);
         view.setColor(new ColorKey(Coronavirus.class, NoVirus.class), Color.RED);
+
         
         // Setup a valid starting point.
         reset();
@@ -143,7 +148,7 @@ public class Simulator
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location);;
+                    Fox fox = new Fox(true, field, location, new NoVirus());;
                     animals.add(fox);
                 }
                 /*else if (rand.nextDouble() <= COVID_CREATION_PROBABILITY) {
@@ -153,7 +158,7 @@ public class Simulator
                 }*/
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Rabbit rabbit = new Rabbit(true, field, location);
+                    Rabbit rabbit = new Rabbit(true, field, location, new NoVirus());
                     animals.add(rabbit);
                 }
                 // else leave the location empty.

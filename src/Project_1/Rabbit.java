@@ -38,9 +38,9 @@ public class Rabbit extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(boolean randomAge, Field field, Location location)
+    public Rabbit(boolean randomAge, Field field, Location location, VirusStatus virusStatus)
     {
-        super(field, location);
+        super(field, location, virusStatus);
         age = 0;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
@@ -55,7 +55,10 @@ public class Rabbit extends Animal
     public void act(List<Animal> newRabbits)
     {
         incrementAge();
+        virusStatus.incrementSeverity(this);
         if(isAlive()) {
+            virusStatus.cure(this);
+            virusStatus.infect(getField(), getLocation());
             giveBirth(newRabbits);            
             // Try to move into a free location.
             Location newLocation = getField().freeAdjacentLocation(getLocation());
@@ -95,7 +98,7 @@ public class Rabbit extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Rabbit young = new Rabbit(false, field, loc);
+            Rabbit young = new Rabbit(false, field, loc, new NoVirus());
             newRabbits.add(young);
         }
     }

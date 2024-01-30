@@ -33,8 +33,8 @@ public class Coronavirus extends Animal{
      * @param field    The field currently occupied.
      * @param location The location within the field.
      */
-    public Coronavirus(boolean randomAge, Field field, Location location) {
-        super(field, location);
+    public Coronavirus(boolean randomAge, Field field, Location location, VirusStatus virusStatus) {
+        super(field, location, virusStatus);
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
             foodLevel = rand.nextInt(ANIMAL_FOOD_LEVEL);
@@ -136,7 +136,7 @@ public class Coronavirus extends Animal{
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Coronavirus young = new Coronavirus(false, field, loc);
+            Coronavirus young = new Coronavirus(false, field, loc, new ActiveVirus());
             newViruses.add(young);
         }
     }

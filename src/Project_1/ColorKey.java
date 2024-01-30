@@ -6,21 +6,13 @@ import java.util.Objects;
  * Color Key for the Simulator View HashMap of colors for classes
  */
 public class ColorKey {
-    private Class animalClass;
-    private Class virusClass;
+    private final Class animalClass;
+    private final Class virusClass;
 
     public ColorKey(Class animalClass, Class virusClass) {
         this.animalClass = animalClass;
         this.virusClass = virusClass;
     }
-    public Class getAnimalClass() {
-        return animalClass;
-    }
-
-    public Class getVirusClass() {
-        return virusClass;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

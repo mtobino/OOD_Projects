@@ -24,10 +24,11 @@ public abstract class Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Field field, Location location)
+    public Animal(Field field, Location location, VirusStatus virusStatus)
     {
         alive = true;
         this.field = field;
+        this.virusStatus = virusStatus;
         setLocation(location);
     }
     
