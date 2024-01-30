@@ -29,7 +29,7 @@ public class SimulatorView extends JFrame
     private FieldView fieldView;
     
     // A map for storing colors for participants in the simulation
-    private Map<Class, Color> colors;
+    private Map<ColorKey, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
 
@@ -61,20 +61,20 @@ public class SimulatorView extends JFrame
     
     /**
      * Define a color to be used for a given class of animal.
-     * @param animalClass The animal's Class object.
+     * @param key The animal's the class and infection status
      * @param color The color to be used for the given class.
      */
-    public void setColor(Class animalClass, Color color)
+    public void setColor(ColorKey key, Color color)
     {
-        colors.put(animalClass, color);
+        colors.put(key, color);
     }
 
     /**
      * @return The color to be used for a given class of animal.
      */
-    private Color getColor(Class animalClass)
+    private Color getColor(ColorKey animalColor)
     {
-        Color col = colors.get(animalClass);
+        Color col = colors.get(animalColor);
         if(col == null) {
             // no color defined for this class
             return UNKNOWN_COLOR;
@@ -105,7 +105,7 @@ public class SimulatorView extends JFrame
                 Object animal = field.getObjectAt(row, col);
                 if(animal != null) {
                     stats.incrementCount(animal.getClass());
-                    fieldView.drawMark(col, row, getColor(animal.getClass()));
+                    fieldView.drawMark(col, row, getColor(new ColorKey(animal.getClass(), ((Animal) animal).getVirusStatus().getClass())));
                 }
                 else {
                     fieldView.drawMark(col, row, EMPTY_COLOR);

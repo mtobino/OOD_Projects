@@ -63,9 +63,9 @@ public class Simulator
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        view.setColor(Rabbit.class, Color.ORANGE);
-        view.setColor(Fox.class, Color.BLUE);
-        view.setColor(Coronavirus.class, Color.RED);
+        view.setColor(new ColorKey(Rabbit.class, NoVirus.class), Color.ORANGE);
+        view.setColor(new ColorKey(Fox.class, NoVirus.class), Color.BLUE);
+        view.setColor(new ColorKey(Coronavirus.class, NoVirus.class), Color.RED);
         
         // Setup a valid starting point.
         reset();
@@ -146,11 +146,11 @@ public class Simulator
                     Fox fox = new Fox(true, field, location);;
                     animals.add(fox);
                 }
-                else if (rand.nextDouble() <= COVID_CREATION_PROBABILITY) {
+                /*else if (rand.nextDouble() <= COVID_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Coronavirus covid = new Coronavirus(true, field, location);;
                     animals.add(covid);
-                }
+                }*/
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
