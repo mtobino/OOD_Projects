@@ -66,10 +66,10 @@ public class Fox extends Animal
     {
         incrementAge();
         incrementHunger();
-        virusStatus.incrementSeverity(this);
+        getVirusStatus().incrementSeverity(this);
         if(isAlive()) {
-            virusStatus.cure(this);
-            virusStatus.infect(getField(), getLocation());
+            getVirusStatus().cure(this);
+            getVirusStatus().infect(getField(), getLocation());
             giveBirth(newFoxes);            
             // Move towards a source of food if found.
             Location newLocation = findFood();

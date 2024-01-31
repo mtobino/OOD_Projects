@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 public class ActiveVirus implements VirusStatus{
     private static final Random rand = new Random();
-    private final int MAX_SEVERITY = rand.nextInt(10);
+    private final int MAX_SEVERITY = rand.nextInt(7);
     private int currentSeverity = 0;
     public ActiveVirus(){
     }
@@ -17,8 +17,11 @@ public class ActiveVirus implements VirusStatus{
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if(animal instanceof Animal) {
-               ((Animal) animal).setVirusStatus(new ActiveVirus());
+            if(animal instanceof Animal animal1)
+            {
+                if(!animal1.getVirusStatus().getClass().equals(ImmuneVirus.class)){
+                    animal1.setVirusStatus(new ActiveVirus());
+                }
             }
         }
     }
@@ -26,7 +29,11 @@ public class ActiveVirus implements VirusStatus{
     @Override
     public void incrementSeverity(Animal animal)
     {
-        currentSeverity++;
+        if(animal instanceof Rabbit)
+            currentSeverity += 2;
+        else
+            currentSeverity++;
+
         if(currentSeverity > MAX_SEVERITY)
         {
             animal.setDead();
@@ -36,7 +43,7 @@ public class ActiveVirus implements VirusStatus{
     @Override
     public void cure(Animal animal) {
         int cureChance = rand.nextInt(100);
-        if(cureChance <= 25){
+        if(cureChance <= 20){
             animal.setVirusStatus(new ImmuneVirus());
         }
     }

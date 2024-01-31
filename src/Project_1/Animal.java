@@ -16,7 +16,7 @@ public abstract class Animal
     private Field field;
     // The animal's position in the field.
     private Location location;
-    protected VirusStatus virusStatus = new NoVirus();
+    private VirusStatus virusStatus;
     
     /**
      * Create a new animal at location in field.
@@ -93,11 +93,11 @@ public abstract class Animal
         return field;
     }
 
-    public VirusStatus getVirusStatus() {
+    protected VirusStatus getVirusStatus() {
         return virusStatus;
     }
 
-    public void setVirusStatus(VirusStatus virusStatus) {
+    protected void setVirusStatus(VirusStatus virusStatus) {
         this.virusStatus = virusStatus;
     }
 }

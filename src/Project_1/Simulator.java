@@ -64,7 +64,7 @@ public class Simulator
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
         view.setColor(new ColorKey(Rabbit.class, NoVirus.class), Color.ORANGE);
-        view.setColor(new ColorKey(Rabbit.class, ImmuneVirus.class), Color.YELLOW);
+        view.setColor(new ColorKey(Rabbit.class, ImmuneVirus.class), Color.GREEN);
         view.setColor(new ColorKey(Rabbit.class, ActiveVirus.class), Color.RED);
         view.setColor(new ColorKey(Fox.class, NoVirus.class), Color.BLUE);
         view.setColor(new ColorKey(Fox.class, ImmuneVirus.class), Color.CYAN);
@@ -94,7 +94,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            //delay(1000);   // uncomment this to run more slowly
+            delay(100);   // uncomment this to run more slowly
         }
     }
     
@@ -148,7 +148,13 @@ public class Simulator
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location, new NoVirus());;
+                    Fox fox;
+                    if(rand.nextInt(100) >= 95){
+                        fox = new Fox(true, field, location, new ActiveVirus());
+                    }
+                    else {
+                        fox = new Fox(true, field, location, new NoVirus());
+                    }
                     animals.add(fox);
                 }
                 /*else if (rand.nextDouble() <= COVID_CREATION_PROBABILITY) {
@@ -158,7 +164,14 @@ public class Simulator
                 }*/
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Rabbit rabbit = new Rabbit(true, field, location, new NoVirus());
+                    Rabbit rabbit;
+                    if(rand.nextInt(100) >= 95){
+                        rabbit = new Rabbit(true, field, location, new ActiveVirus());
+                    }
+                    else{
+                        rabbit = new Rabbit(true, field, location, new NoVirus());
+
+                    }
                     animals.add(rabbit);
                 }
                 // else leave the location empty.

@@ -55,10 +55,10 @@ public class Rabbit extends Animal
     public void act(List<Animal> newRabbits)
     {
         incrementAge();
-        virusStatus.incrementSeverity(this);
+        getVirusStatus().incrementSeverity(this);
         if(isAlive()) {
-            virusStatus.cure(this);
-            virusStatus.infect(getField(), getLocation());
+            getVirusStatus().cure(this);
+            getVirusStatus().infect(getField(), getLocation());
             giveBirth(newRabbits);            
             // Try to move into a free location.
             Location newLocation = getField().freeAdjacentLocation(getLocation());
