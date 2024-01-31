@@ -26,4 +26,17 @@ public interface VirusStatus {
      */
     void cure(Animal animal);
 
+    /**
+     * Return whether the animal should be immune or if they are susceptible to the virus
+     *
+     * @return  true iff the animal is immune
+     */
+    boolean isImmune();
+
+    /**
+     * Returns whether the animal has an active virus
+     * @return
+     */
+    boolean isActive();
+
 }

@@ -12,4 +12,14 @@ public class ImmuneVirus implements VirusStatus{
     public void cure(Animal animal) {
 
     }
+
+    @Override
+    public boolean isImmune() {
+        return true;
+    }
+
+    @Override
+    public boolean isActive() {
+        return false;
+    }
 }

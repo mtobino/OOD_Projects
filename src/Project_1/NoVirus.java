@@ -8,5 +8,13 @@ public class NoVirus implements VirusStatus{
     public void cure(Animal animal) {
 
     }
+    public boolean isImmune() {
+        return false;
+    }
+
+    @Override
+    public boolean isActive() {
+        return false;
+    }
 
 }

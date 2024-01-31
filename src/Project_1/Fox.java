@@ -128,7 +128,7 @@ public class Fox extends Animal
                 if(rabbit.isAlive()) {
                     rabbit.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
-                    if(rabbit.getVirusStatus().getClass().equals(ActiveVirus.class)){
+                    if(rabbit.getVirusStatus().isActive() && !getVirusStatus().isImmune()){
                         setVirusStatus(new ActiveVirus());
                     }
                     return where;

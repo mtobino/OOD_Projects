@@ -40,12 +40,19 @@ public class ActiveVirus implements VirusStatus{
         }
     }
 
-    @Override
     public void cure(Animal animal) {
         int cureChance = rand.nextInt(100);
-        if(cureChance <= 20){
+        if(cureChance <= 15){
             animal.setVirusStatus(new ImmuneVirus());
         }
+    }
+
+    public boolean isImmune() {
+        return false;
+    }
+
+    public boolean isActive() {
+        return true;
     }
 
 }
