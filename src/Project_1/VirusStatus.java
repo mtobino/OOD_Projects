@@ -35,7 +35,8 @@ public interface VirusStatus {
 
     /**
      * Returns whether the animal has an active virus
-     * @return
+     *
+     * @return  true iff the virus is active
      */
     boolean isActive();
 
