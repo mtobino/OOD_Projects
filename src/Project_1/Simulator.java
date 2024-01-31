@@ -63,12 +63,12 @@ public class Simulator
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        view.setColor(new ColorKey(Rabbit.class, NoVirus.class), Color.ORANGE);
-        view.setColor(new ColorKey(Rabbit.class, ImmuneVirus.class), Color.GREEN);
-        view.setColor(new ColorKey(Rabbit.class, ActiveVirus.class), Color.RED);
-        view.setColor(new ColorKey(Fox.class, NoVirus.class), Color.BLUE);
-        view.setColor(new ColorKey(Fox.class, ImmuneVirus.class), Color.CYAN);
-        view.setColor(new ColorKey(Fox.class, ActiveVirus.class), Color.magenta);
+        view.setColor(new ColorKey(Rabbit.class, NoVirusBehavior.class), Color.ORANGE);
+        view.setColor(new ColorKey(Rabbit.class, ImmuneBehavior.class), Color.GREEN);
+        view.setColor(new ColorKey(Rabbit.class, ActiveVirusBehavior.class), Color.RED);
+        view.setColor(new ColorKey(Fox.class, NoVirusBehavior.class), Color.BLUE);
+        view.setColor(new ColorKey(Fox.class, ImmuneBehavior.class), Color.CYAN);
+        view.setColor(new ColorKey(Fox.class, ActiveVirusBehavior.class), Color.magenta);
 
         
         // Setup a valid starting point.
@@ -93,7 +93,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            //delay(100);   // uncomment this to run more slowly
+            delay(100);   // uncomment this to run more slowly
         }
     }
     
@@ -149,10 +149,10 @@ public class Simulator
                     Location location = new Location(row, col);
                     Fox fox;
                     if(rand.nextInt(100) >= 95){
-                        fox = new Fox(true, field, location, new ActiveVirus());
+                        fox = new Fox(true, field, location, new ActiveVirusBehavior());
                     }
                     else {
-                        fox = new Fox(true, field, location, new NoVirus());
+                        fox = new Fox(true, field, location, new NoVirusBehavior());
                     }
                     animals.add(fox);
                 }
@@ -160,10 +160,10 @@ public class Simulator
                     Location location = new Location(row, col);
                     Rabbit rabbit;
                     if(rand.nextInt(100) >= 95){
-                        rabbit = new Rabbit(true, field, location, new ActiveVirus());
+                        rabbit = new Rabbit(true, field, location, new ActiveVirusBehavior());
                     }
                     else{
-                        rabbit = new Rabbit(true, field, location, new NoVirus());
+                        rabbit = new Rabbit(true, field, location, new NoVirusBehavior());
 
                     }
                     animals.add(rabbit);

@@ -3,11 +3,11 @@ package Project_1;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-public class ActiveVirus implements VirusStatus{
+public class ActiveVirusBehavior implements InfectionBehavior {
     private static final Random rand = new Random();
     private final int MAX_SEVERITY = rand.nextInt(50);
     private int currentSeverity = 0;
-    public ActiveVirus(){
+    public ActiveVirusBehavior(){
     }
 
     @Override
@@ -20,7 +20,7 @@ public class ActiveVirus implements VirusStatus{
             if(animal instanceof Animal animal1)
             {
                 if(!animal1.getVirusStatus().isImmune() && !animal1.getVirusStatus().isActive()){
-                    animal1.setVirusStatus(new ActiveVirus());
+                    animal1.setVirusStatus(new ActiveVirusBehavior());
                 }
             }
         }
@@ -43,7 +43,7 @@ public class ActiveVirus implements VirusStatus{
     public void cure(Animal animal) {
         int cureChance = rand.nextInt(100);
         if(cureChance <= 15){
-            animal.setVirusStatus(new ImmuneVirus());
+            animal.setVirusStatus(new ImmuneBehavior());
         }
     }
 

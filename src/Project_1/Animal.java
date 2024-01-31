@@ -16,7 +16,7 @@ public abstract class Animal
     private Field field;
     // The animal's position in the field.
     private Location location;
-    private VirusStatus virusStatus;
+    private InfectionBehavior infectionBehavior;
     
     /**
      * Create a new animal at location in field.
@@ -24,11 +24,11 @@ public abstract class Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Field field, Location location, VirusStatus virusStatus)
+    public Animal(Field field, Location location, InfectionBehavior infectionBehavior)
     {
         alive = true;
         this.field = field;
-        this.virusStatus = virusStatus;
+        this.infectionBehavior = infectionBehavior;
         setLocation(location);
     }
     
@@ -93,11 +93,11 @@ public abstract class Animal
         return field;
     }
 
-    protected VirusStatus getVirusStatus() {
-        return virusStatus;
+    protected InfectionBehavior getVirusStatus() {
+        return infectionBehavior;
     }
 
-    protected void setVirusStatus(VirusStatus virusStatus) {
-        this.virusStatus = virusStatus;
+    protected void setVirusStatus(InfectionBehavior infectionBehavior) {
+        this.infectionBehavior = infectionBehavior;
     }
 }
