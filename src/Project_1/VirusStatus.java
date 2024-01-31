@@ -1,7 +1,7 @@
 package Project_1;
 
 /**
- * A interface to keep track of the Virus Status of an Animal
+ * An interface to keep track of the Virus Status of an Animal
  */
 public interface VirusStatus {
     /**

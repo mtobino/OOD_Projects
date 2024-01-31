@@ -156,11 +156,6 @@ public class Simulator
                     }
                     animals.add(fox);
                 }
-                /*else if (rand.nextDouble() <= COVID_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Coronavirus covid = new Coronavirus(true, field, location);;
-                    animals.add(covid);
-                }*/
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rabbit rabbit;

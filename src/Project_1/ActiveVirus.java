@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 public class ActiveVirus implements VirusStatus{
     private static final Random rand = new Random();
-    private final int MAX_SEVERITY = rand.nextInt(7);
+    private final int MAX_SEVERITY = rand.nextInt(70);
     private int currentSeverity = 0;
     public ActiveVirus(){
     }
