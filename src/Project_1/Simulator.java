@@ -69,7 +69,6 @@ public class Simulator
         view.setColor(new ColorKey(Fox.class, NoVirus.class), Color.BLUE);
         view.setColor(new ColorKey(Fox.class, ImmuneVirus.class), Color.CYAN);
         view.setColor(new ColorKey(Fox.class, ActiveVirus.class), Color.magenta);
-        view.setColor(new ColorKey(Coronavirus.class, NoVirus.class), Color.RED);
 
         
         // Setup a valid starting point.
@@ -94,7 +93,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            delay(100);   // uncomment this to run more slowly
+            //delay(100);   // uncomment this to run more slowly
         }
     }
     
