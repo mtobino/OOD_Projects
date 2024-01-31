@@ -19,7 +19,7 @@ public class ActiveVirus implements VirusStatus{
             Object animal = field.getObjectAt(where);
             if(animal instanceof Animal animal1)
             {
-                if(!animal1.getVirusStatus().getClass().equals(ImmuneVirus.class)){
+                if(!animal1.getVirusStatus().isImmune() && !animal1.getVirusStatus().isActive()){
                     animal1.setVirusStatus(new ActiveVirus());
                 }
             }
