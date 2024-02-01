@@ -69,7 +69,7 @@ public class Simulator
         view.setColor(new ColorKey(Rabbit.class, AsymptomaticBehavior.class), Color.YELLOW);
         view.setColor(new ColorKey(Fox.class, NoVirusBehavior.class), Color.BLUE);
         view.setColor(new ColorKey(Fox.class, ImmuneBehavior.class), Color.CYAN);
-        view.setColor(new ColorKey(Fox.class, ActiveVirusBehavior.class), Color.magenta);
+        view.setColor(new ColorKey(Fox.class, ActiveVirusBehavior.class), Color.MAGENTA);
         view.setColor(new ColorKey(Fox.class, AsymptomaticBehavior.class), Color.PINK);
 
         // Setup a valid starting point.
