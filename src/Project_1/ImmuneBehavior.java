@@ -1,5 +1,10 @@
 package Project_1;
 
+/**
+ * A class to represent the immune behavior of the virus
+ *
+ * @author Matthew Tobino
+ */
 public class ImmuneBehavior implements InfectionBehavior {
     public ImmuneBehavior(){}
     @Override

@@ -4,6 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A class to represent the behavior of a virus who does not cause symptoms in its victim, but does use it to spread
+ *
+ * @author Matthew Tobino
+ */
 public class AsymptomaticBehavior implements InfectionBehavior{
     private static final Random rand = new Random();
     private final int MAX_VIRUS_LIFETIME = rand.nextInt(50);
@@ -19,7 +24,7 @@ public class AsymptomaticBehavior implements InfectionBehavior{
             if(fieldObject instanceof Animal animal)
             {
                 if(!animal.getVirusStatus().isImmune() && !animal.getVirusStatus().isActive()){
-                    if(rand.nextInt(100) < 45)
+                    if(rand.nextInt(100) < ASYMPTOMATIC_CHANCE)
                         animal.setVirusStatus(new ActiveVirusBehavior());
                     else
                         animal.setVirusStatus(new AsymptomaticBehavior());

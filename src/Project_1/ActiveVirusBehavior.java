@@ -3,9 +3,16 @@ package Project_1;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+/**
+ * A class to represent the active behavior of thr virus
+ *
+ * @author Matthew Tobino
+ */
 public class ActiveVirusBehavior implements InfectionBehavior {
     private static final Random rand = new Random();
     private final int MAX_SEVERITY = rand.nextInt(50);
+    private static final int CURE_CHANCE = 15;
     private int currentSeverity = 0;
     public ActiveVirusBehavior(){
     }
@@ -20,7 +27,7 @@ public class ActiveVirusBehavior implements InfectionBehavior {
             if(fieldObject instanceof Animal animal)
             {
                 if(!animal.getVirusStatus().isImmune() && !animal.getVirusStatus().isActive()){
-                    if(rand.nextInt(100) < 45)
+                    if(rand.nextInt(100) < ASYMPTOMATIC_CHANCE)
                         animal.setVirusStatus(new ActiveVirusBehavior());
                     else
                         animal.setVirusStatus(new AsymptomaticBehavior());
@@ -45,7 +52,7 @@ public class ActiveVirusBehavior implements InfectionBehavior {
 
     public void cure(Animal animal) {
         int cureChance = rand.nextInt(100);
-        if(cureChance <= 15){
+        if(cureChance <= CURE_CHANCE){
             animal.setVirusStatus(new ImmuneBehavior());
         }
     }

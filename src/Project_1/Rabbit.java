@@ -37,6 +37,7 @@ public class Rabbit extends Animal
      * @param randomAge If true, the rabbit will have a random age.
      * @param field The field currently occupied.
      * @param location The location within the field.
+     * @param infectionBehavior The infection behavior of the animal
      */
     public Rabbit(boolean randomAge, Field field, Location location, InfectionBehavior infectionBehavior)
     {
@@ -98,16 +99,6 @@ public class Rabbit extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-//            Rabbit young;
-//            if(getVirusStatus().isImmune()){
-//               young = new Rabbit(false, field, loc, new ImmuneBehavior());
-//            }
-//            else if(getVirusStatus().isActive()){
-//                young = new Rabbit(false, field, loc, new ActiveVirusBehavior());
-//            }
-//            else{
-//                young = new Rabbit(false, field, loc, new NoVirusBehavior());
-//            }
             Rabbit young = new Rabbit(false, field, loc, new NoVirusBehavior());
             newRabbits.add(young);
         }

@@ -4,6 +4,7 @@ package Project_1;
  * An interface to keep track of the Virus Status of an Animal
  */
 public interface InfectionBehavior {
+    int ASYMPTOMATIC_CHANCE = 45; // Based on the asymptomatic chance of COVID. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9935239/
     /**
      * Infect the surrounding animals, will do nothing in the event that the animal is either immune or does not carry the virus
      *

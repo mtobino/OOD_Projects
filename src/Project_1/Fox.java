@@ -42,6 +42,7 @@ public class Fox extends Animal
      * @param randomAge If true, the fox will have random age and hunger level.
      * @param field The field currently occupied.
      * @param location The location within the field.
+     * @param infectionBehavior The infection behavior of the animal
      */
     public Fox(boolean randomAge, Field field, Location location, InfectionBehavior infectionBehavior)
     {
@@ -128,7 +129,8 @@ public class Fox extends Animal
                 if(rabbit.isAlive()) {
                     rabbit.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
-                    if(rabbit.getVirusStatus().isActive() && !getVirusStatus().isImmune()){
+                    // if the rabbit has the virus, set the fox to have the virus
+                    if(rabbit.getVirusStatus().isActive()){
                         setVirusStatus(new ActiveVirusBehavior());
                     }
                     return where;
@@ -152,16 +154,6 @@ public class Fox extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-//            Fox young;
-//            if(getVirusStatus().isImmune()){
-//                young = new Fox(false, field, loc, new ImmuneBehavior());
-//            }
-//            else if(getVirusStatus().isActive()){
-//                young = new Fox(false, field, loc, new ActiveVirusBehavior());
-//            }
-//            else{
-//                young = new Fox(false, field, loc, new NoVirusBehavior());
-//            }
             Fox young = new Fox(false, field, loc, new NoVirusBehavior());
             newFoxes.add(young);
         }
