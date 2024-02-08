@@ -26,11 +26,11 @@ public class ActiveVirusBehavior implements InfectionBehavior {
             Object fieldObject = field.getObjectAt(where);
             if(fieldObject instanceof Animal animal)
             {
-                if(!animal.getVirusStatus().isImmune() && !animal.getVirusStatus().isActive()){
+                if(!animal.getInfectionBehavior().isImmune() && !animal.getInfectionBehavior().isActive()){
                     if(rand.nextInt(100) < ASYMPTOMATIC_CHANCE)
-                        animal.setVirusStatus(new ActiveVirusBehavior());
+                        animal.setInfectionBehavior(new ActiveVirusBehavior());
                     else
-                        animal.setVirusStatus(new AsymptomaticBehavior());
+                        animal.setInfectionBehavior(new AsymptomaticBehavior());
                 }
             }
         }
@@ -53,7 +53,7 @@ public class ActiveVirusBehavior implements InfectionBehavior {
     public void cure(Animal animal) {
         int cureChance = rand.nextInt(100);
         if(cureChance <= CURE_CHANCE){
-            animal.setVirusStatus(new ImmuneBehavior());
+            animal.setInfectionBehavior(new ImmuneBehavior());
         }
     }
 

@@ -67,10 +67,10 @@ public class Fox extends Animal
     {
         incrementAge();
         incrementHunger();
-        getVirusStatus().incrementSeverity(this);
+        getInfectionBehavior().incrementSeverity(this);
         if(isAlive()) {
-            getVirusStatus().cure(this);
-            getVirusStatus().infect(getField(), getLocation());
+            getInfectionBehavior().cure(this);
+            getInfectionBehavior().infect(getField(), getLocation());
             giveBirth(newFoxes);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
@@ -130,8 +130,8 @@ public class Fox extends Animal
                     rabbit.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
                     // if the rabbit has the virus, set the fox to have the virus
-                    if(rabbit.getVirusStatus().isActive()){
-                        setVirusStatus(new ActiveVirusBehavior());
+                    if(rabbit.getInfectionBehavior().isActive()){
+                        setInfectionBehavior(new ActiveVirusBehavior());
                     }
                     return where;
                 }

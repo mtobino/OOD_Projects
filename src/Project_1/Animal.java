@@ -93,11 +93,11 @@ public abstract class Animal
         return field;
     }
 
-    protected InfectionBehavior getVirusStatus() {
+    protected InfectionBehavior getInfectionBehavior() {
         return infectionBehavior;
     }
 
-    protected void setVirusStatus(InfectionBehavior infectionBehavior) {
+    protected void setInfectionBehavior(InfectionBehavior infectionBehavior) {
         this.infectionBehavior = infectionBehavior;
     }
 }

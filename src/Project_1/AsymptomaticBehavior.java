@@ -23,11 +23,11 @@ public class AsymptomaticBehavior implements InfectionBehavior{
             Object fieldObject = field.getObjectAt(where);
             if(fieldObject instanceof Animal animal)
             {
-                if(!animal.getVirusStatus().isImmune() && !animal.getVirusStatus().isActive()){
+                if(!animal.getInfectionBehavior().isImmune() && !animal.getInfectionBehavior().isActive()){
                     if(rand.nextInt(100) < ASYMPTOMATIC_CHANCE)
-                        animal.setVirusStatus(new ActiveVirusBehavior());
+                        animal.setInfectionBehavior(new ActiveVirusBehavior());
                     else
-                        animal.setVirusStatus(new AsymptomaticBehavior());
+                        animal.setInfectionBehavior(new AsymptomaticBehavior());
                 }
             }
         }
@@ -42,7 +42,7 @@ public class AsymptomaticBehavior implements InfectionBehavior{
 
         if(virusLifetime > MAX_VIRUS_LIFETIME)
         {
-            animal.setVirusStatus(new ImmuneBehavior());
+            animal.setInfectionBehavior(new ImmuneBehavior());
         }
     }
 
