@@ -3,7 +3,7 @@ package Project_1;
 import java.util.Objects;
 
 /**
- * Color Key for the Simulator View HashMap of colors for classes
+ * Color Key for the SimulatorP View HashMap of colors for classes
  */
 public class ColorKey {
     private final Class animalClass;
