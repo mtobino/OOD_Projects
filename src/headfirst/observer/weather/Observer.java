@@ -1,5 +1,5 @@
 package headfirst.observer.weather;
 
 public interface Observer {
-	void update(Subject subject);
+	public void update(float temp, float humidity, float pressure);
 }
