@@ -16,4 +16,16 @@ public class ObserverAdapter extends BeansObserver {
         observer.update(weatherData.getTemperature(), weatherData.getHumidity(), weatherData.getPressure());
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ObserverAdapter other){
+            return other.getObserver().equals(observer);
+        }
+        return false;
+    }
+
+    public Observer getObserver() {
+        return observer;
+    }
 }
