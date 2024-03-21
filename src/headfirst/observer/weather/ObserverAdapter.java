@@ -11,15 +11,15 @@ import rowan.ood.beansobserver.Observable;
 public class ObserverAdapter extends BeansObserver {
 
     // Specifying that this observer that is being adapted is from the Weather package
-    private final headfirst.observer.weather.Observer observer;
+    private final headfirst.observer.weather.Observer weatherObserver;
 
     /**
      * Constructor for the Adapater
      *
-     * @param observer  The Weather Observer that will go through the adaptation
+     * @param weatherObserver  The Weather Observer that will go through the adaptation
      */
-    public ObserverAdapter(headfirst.observer.weather.Observer observer){
-        this.observer = observer;
+    public ObserverAdapter(headfirst.observer.weather.Observer weatherObserver){
+        this.weatherObserver = weatherObserver;
     }
 
     /**
@@ -31,7 +31,7 @@ public class ObserverAdapter extends BeansObserver {
     public void update(Observable source, Object data)
     {
         WeatherData weatherData = (WeatherData) data;
-        observer.update(weatherData.getTemperature(), weatherData.getHumidity(), weatherData.getPressure());
+        weatherObserver.update(weatherData.getTemperature(), weatherData.getHumidity(), weatherData.getPressure());
 
     }
 
@@ -44,7 +44,7 @@ public class ObserverAdapter extends BeansObserver {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof ObserverAdapter other){
-            return other.getObserver().equals(observer);
+            return other.getWeatherObserver().equals(weatherObserver);
         }
         return false;
     }
@@ -54,7 +54,7 @@ public class ObserverAdapter extends BeansObserver {
      *
      * @return  the Weather Observer
      */
-    public Observer getObserver() {
-        return observer;
+    public Observer getWeatherObserver() {
+        return weatherObserver;
     }
 }
