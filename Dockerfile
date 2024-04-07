@@ -1,5 +1,5 @@
 # Tell Docker to use Java 21
-FROM openjdk:21
+FROM amazoncorretto:21
 
 # Copy all of the files in the specified directory to the container directory
 COPY src/rowan/ood/protectionproxy /rowan/ood/protectionproxy
