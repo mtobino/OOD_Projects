@@ -1,4 +1,4 @@
-package Project_1;
+package project_1;
 
 import javax.swing.*;
 import java.awt.*;

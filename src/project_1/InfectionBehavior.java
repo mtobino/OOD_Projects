@@ -1,4 +1,4 @@
-package Project_1;
+package project_1;
 
 /**
  * An interface to keep track of the Virus Status of an Animal

@@ -1,22 +1,19 @@
-package Project_1;
+package project_1;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 /**
- * A class to represent the active behavior of thr virus
+ * A class to represent the behavior of a virus who does not cause symptoms in its victim, but does use it to spread
  *
  * @author Matthew Tobino
  */
-public class ActiveVirusBehavior implements InfectionBehavior {
+public class AsymptomaticBehavior implements InfectionBehavior{
     private static final Random rand = new Random();
-    private final int MAX_SEVERITY = rand.nextInt(50);
-    private static final int CURE_CHANCE = 15;
-    private int currentSeverity = 0;
-    public ActiveVirusBehavior(){
-    }
-
+    private final int MAX_VIRUS_LIFETIME = rand.nextInt(50);
+    private int virusLifetime = 0;
+    public AsymptomaticBehavior(){}
     @Override
     public void infect(Field field, Location location) {
         List<Location> adjacent = field.adjacentLocations(location);
@@ -37,32 +34,29 @@ public class ActiveVirusBehavior implements InfectionBehavior {
     }
 
     @Override
-    public void incrementSeverity(Animal animal)
-    {
+    public void incrementSeverity(Animal animal) {
         if(animal instanceof Rabbit)
-            currentSeverity += 2;
+            virusLifetime += 2;
         else
-            currentSeverity++;
+            virusLifetime++;
 
-        if(currentSeverity > MAX_SEVERITY)
+        if(virusLifetime > MAX_VIRUS_LIFETIME)
         {
-            animal.setDead();
-        }
-    }
-
-    public void cure(Animal animal) {
-        int cureChance = rand.nextInt(100);
-        if(cureChance <= CURE_CHANCE){
             animal.setInfectionBehavior(new ImmuneBehavior());
         }
     }
 
+    @Override
+    public void cure(Animal animal) {
+    }
+
+    @Override
     public boolean isImmune() {
         return false;
     }
 
+    @Override
     public boolean isActive() {
         return true;
     }
-
 }

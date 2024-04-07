@@ -1,4 +1,4 @@
-package Project_1;
+package project_1;
 
 /**
  * Provide a counter for a participant in the simulation.

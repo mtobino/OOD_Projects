@@ -1,30 +1,25 @@
-package Project_1;
+package project_1;
 
 /**
- * A class to represent the immune behavior of the virus
+ * A class to represent the behavior of an animal who has never seen the virus
  *
  * @author Matthew Tobino
  */
-public class ImmuneBehavior implements InfectionBehavior {
-    public ImmuneBehavior(){}
-    @Override
+public class NoVirusBehavior implements InfectionBehavior {
+    public NoVirusBehavior(){}
     public void infect(Field field, Location location) {}
-
-    @Override
     public void incrementSeverity(Animal animal) {}
 
-    @Override
     public void cure(Animal animal) {
 
     }
-
-    @Override
     public boolean isImmune() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isActive() {
         return false;
     }
+
 }

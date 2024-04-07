@@ -1,4 +1,4 @@
-package Project_1;
+package project_1;
 
 /**
  * Project 1/COVID
