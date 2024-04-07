@@ -1,6 +1,4 @@
-package Fox_and_Rabbit_EC;
-
-import java.awt.Color;
+package fox_and_rabbit_ec;
 
 /**
  * Provide a counter for a participant in the simulation.

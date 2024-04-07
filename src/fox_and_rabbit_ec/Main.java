@@ -1,4 +1,4 @@
-package Fox_and_Rabbit_EC;
+package fox_and_rabbit_ec;
 
 /**
  * Extra Credit/Project 0
