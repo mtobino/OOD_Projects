@@ -14,6 +14,7 @@ public class GoToAction implements TileActionCommand {
 
     @Override
     public int execute(Player player) {
+        System.out.println(player.getName() + " is getting moved to " + GoToLocation);
         return GoToLocation;
     }
 

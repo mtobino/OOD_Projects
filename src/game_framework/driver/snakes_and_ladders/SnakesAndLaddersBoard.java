@@ -20,7 +20,7 @@ public class SnakesAndLaddersBoard extends GameBoard {
                 System.out.println(player.getName() + " won the game!");
             }
             else{
-                System.out.println(player.getName() + " lost the game. They were at tile " + player.getLocation());
+                System.out.println(player.getName() + " lost the game. They were at tile " + player.getLocation() + ".");
             }
         }
     }
@@ -29,9 +29,12 @@ public class SnakesAndLaddersBoard extends GameBoard {
     protected void playRound(){
         for(Player player : players){
             System.out.println("It's " + player.getName() + "'s turn, lets see how they do!");
+            System.out.println("They are starting this turn at tile " + player.getLocation());
             int playerCurrentLocation = player.getLocation();
             // player performs their playing action (rolling the dice usually)
-            int playerNewLocation = playerCurrentLocation + player.play();
+            int spin = player.play();
+            System.out.println(player.getName() + " spun a " + spin);
+            int playerNewLocation = playerCurrentLocation + spin;
             // adjust player's new location for cases of going over the winner tile in Snakes and ladders
             // or looping back to the start for Monopoly
             playerNewLocation = adjustPlayerNewLocation(playerNewLocation, player);

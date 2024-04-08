@@ -1,6 +1,6 @@
 package game_framework.code_base;
 
-public abstract class Player {
+public class Player {
 
     private final String name;
     private int location;
