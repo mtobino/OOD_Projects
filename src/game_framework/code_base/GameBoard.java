@@ -39,7 +39,7 @@ public abstract class GameBoard {
             int playerNewLocation = playerCurrentLocation + player.play();
             // adjust player's new location for cases of going over the winner tile in Snakes and ladders
             // or looping back to the start for Monopoly
-            playerNewLocation = adjustPlayerNewLocation(playerNewLocation);
+            playerNewLocation = adjustPlayerNewLocation(playerNewLocation, player);
             // get the tile the player will be moving
             BoardActionCommand tileCommand = boardActions.get(playerNewLocation);
             // perform that tiles actions with the player
@@ -59,6 +59,6 @@ public abstract class GameBoard {
 
     protected abstract boolean winner();
 
-    protected abstract int adjustPlayerNewLocation(int playerNewLocation);
+    protected abstract int adjustPlayerNewLocation(int playerNewLocation, Player player);
 
 }

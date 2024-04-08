@@ -5,28 +5,28 @@ import game_framework.code_base.Player;
 
 import java.util.Objects;
 
-public class PlainTileAction implements BoardActionCommand {
-    private final int tileLocation;
+public class GoToAction implements BoardActionCommand {
+    private final int GoToLocation;
 
-    public PlainTileAction(int tileLocation) {
-        this.tileLocation = tileLocation;
+    public GoToAction(int goToLocation) {
+        GoToLocation = goToLocation;
     }
 
     @Override
     public int execute(Player player) {
-        return tileLocation;
+        return GoToLocation;
     }
 
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        PlainTileAction that = (PlainTileAction) object;
-        return tileLocation == that.tileLocation;
+        GoToAction that = (GoToAction) object;
+        return GoToLocation == that.GoToLocation;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tileLocation);
+        return Objects.hash(GoToLocation);
     }
 }
