@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GameBoard {
-    private Map<Integer, BoardActionCommand> boardActions;
-    List<Player> players;
+    protected Map<Integer, BoardActionCommand> boardActions;
+    protected List<Player> players;
 
     public GameBoard(){
         boardActions = new HashMap<>();
@@ -31,20 +31,34 @@ public abstract class GameBoard {
         boardActions.put(location, boardAction);
     }
 
-    public final void playRound(){
+    public void playRound(){
         for(Player player : players){
             System.out.println("It's " + player.getName() + "'s turn, lets see how they do!");
             int playerCurrentLocation = player.getLocation();
             // player performs their playing action (rolling the dice usually)
             int playerNewLocation = playerCurrentLocation + player.play();
+            // adjust player's new location for cases of going over the winner tile in Snakes and ladders
+            // or looping back to the start for Monopoly
+            playerNewLocation = adjustPlayerNewLocation(playerNewLocation);
             // get the tile the player will be moving
             BoardActionCommand tileCommand = boardActions.get(playerNewLocation);
             // perform that tiles actions with the player
-            tileCommand.execute(player);
+            playerNewLocation = tileCommand.execute(player);
             // update the player and their location
             player.update(playerNewLocation);
-
             System.out.println();
         }
     }
+
+    public void play(){
+        while(!winner())
+        {
+            playRound();
+        }
+    }
+
+    protected abstract boolean winner();
+
+    protected abstract int adjustPlayerNewLocation(int playerNewLocation);
+
 }
