@@ -6,59 +6,82 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class GameBoard {
-    protected Map<Integer, BoardActionCommand> boardActions;
+    protected Map<Integer, TileActionCommand> tileActions;
     protected List<Player> players;
 
+    /**
+     * Constructor for generic game board
+     */
     public GameBoard(){
-        boardActions = new HashMap<>();
+        tileActions = new HashMap<>();
         players = new ArrayList<>();
     }
 
-    public Map<Integer, BoardActionCommand> getBoardActions() {
-        return boardActions;
+    /**
+     * Getter for the Tile Actions Map
+     *
+     * @return The map of the board actions where the key is the tile locations and the value the tile's command
+     */
+    public Map<Integer, TileActionCommand> getTileActions() {
+        return tileActions;
     }
 
+    /**
+     * Register a player to observe the game board
+     *
+     * @param player the player of the game
+     */
     public void registerPlayer(Player player)
     {
         players.add(player);
     }
 
+    /**
+     * Remove a player from the game
+     *
+     * @param player the player being removed from the game
+     */
     public void removePlayer(Player player){
         players.removeIf(player1 -> player1.equals(player));
     }
 
-    public void addGameTiles(int location, BoardActionCommand boardAction){
-        boardActions.put(location, boardAction);
-    }
+    /**
+     * Play a round of the game, subclasses determine how a round is played
+     */
+    protected abstract void playRound();
 
-    public void playRound(){
-        for(Player player : players){
-            System.out.println("It's " + player.getName() + "'s turn, lets see how they do!");
-            int playerCurrentLocation = player.getLocation();
-            // player performs their playing action (rolling the dice usually)
-            int playerNewLocation = playerCurrentLocation + player.play();
-            // adjust player's new location for cases of going over the winner tile in Snakes and ladders
-            // or looping back to the start for Monopoly
-            playerNewLocation = adjustPlayerNewLocation(playerNewLocation, player);
-            // get the tile the player will be moving
-            BoardActionCommand tileCommand = boardActions.get(playerNewLocation);
-            // perform that tiles actions with the player
-            playerNewLocation = tileCommand.execute(player);
-            // update the player and their location
-            player.update(playerNewLocation);
-            System.out.println();
-        }
-    }
-
-    public void play(){
+    /**
+     * Play the game until it is won by someone. Once it is won, display the final results of the game
+     */
+    public final void play(){
         while(!winner())
         {
             playRound();
         }
+        displayResults();
     }
 
+    /**
+     * Display the final results of the game. Subclasses determine how a player is displayed
+     */
+    protected abstract void displayResults();
+
+    /**
+     * Returns true iff someone has won the game, otherwise it will be false
+     *
+     * @return true iff some player won the game.
+     */
     protected abstract boolean winner();
 
+    /**
+     * Adjust the player's new position based on the board and how it functions
+     * In Snakes and Ladders you cannot go over the winning tile
+     * In Monopoly you will loop around the board
+     *
+     * @param playerNewLocation the new player location that has to be checked
+     * @param player            if the player cannot move, we have to take their location into account
+     * @return                  the adjusted location
+     */
     protected abstract int adjustPlayerNewLocation(int playerNewLocation, Player player);
 
 }

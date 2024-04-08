@@ -35,5 +35,7 @@ public abstract class Player {
     public String getName(){
         return name;
     }
-    abstract public int play();
+    public int play(){
+        return playerAction.play();
+    }
 }

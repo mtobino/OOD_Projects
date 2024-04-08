@@ -1,6 +1,6 @@
 package game_framework.code_base;
 
-public interface BoardActionCommand {
+public interface TileActionCommand {
 
     int execute(Player player);
 }

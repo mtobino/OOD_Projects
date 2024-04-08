@@ -1,5 +1,6 @@
 package game_framework.driver.snakes_and_ladders;
 
+import game_framework.code_base.TileActionCommand;
 import game_framework.code_base.GameBoard;
 import game_framework.code_base.Player;
 
@@ -10,6 +11,39 @@ public class SnakesAndLaddersBoard extends GameBoard {
         setup();
 
     }
+
+    @Override
+    protected void displayResults() {
+        int boardSize = tileActions.size();
+        for(Player player : players){
+            if(player.getLocation() == boardSize){
+                System.out.println(player.getName() + " won the game!");
+            }
+            else{
+                System.out.println(player.getName() + " lost the game. They were at tile " + player.getLocation());
+            }
+        }
+    }
+
+    @Override
+    protected void playRound(){
+        for(Player player : players){
+            System.out.println("It's " + player.getName() + "'s turn, lets see how they do!");
+            int playerCurrentLocation = player.getLocation();
+            // player performs their playing action (rolling the dice usually)
+            int playerNewLocation = playerCurrentLocation + player.play();
+            // adjust player's new location for cases of going over the winner tile in Snakes and ladders
+            // or looping back to the start for Monopoly
+            playerNewLocation = adjustPlayerNewLocation(playerNewLocation, player);
+            // get the tile the player will be moving
+            TileActionCommand tileCommand = tileActions.get(playerNewLocation);
+            // perform that tiles actions with the player
+            playerNewLocation = tileCommand.execute(player);
+            // update the player and their location
+            player.update(playerNewLocation);
+            System.out.println();
+        }
+    }
     private void setup(){
         setupPlainTiles();
         setupGoToTiles();
@@ -17,7 +51,7 @@ public class SnakesAndLaddersBoard extends GameBoard {
     @Override
     protected boolean winner()
     {
-        int boardSize = boardActions.size();
+        int boardSize = tileActions.size();
         boolean winner = false;
         for(Player player : players){
             winner |= player.getLocation() == boardSize;
@@ -27,7 +61,7 @@ public class SnakesAndLaddersBoard extends GameBoard {
 
     @Override
     protected int adjustPlayerNewLocation(int playerNewLocation, Player player) {
-        if(playerNewLocation > boardActions.size()){
+        if(playerNewLocation > tileActions.size()){
             return player.getLocation();
         }
         return playerNewLocation;
@@ -40,33 +74,33 @@ public class SnakesAndLaddersBoard extends GameBoard {
         , 61, 63, 65, 66, 67, 68, 69, 70, 72, 73, 74,75, 76, 77, 78, 79, 81
         , 82, 83, 84, 85, 86, 88, 89, 90, 91, 92, 94, 96, 97, 99, 100};
         for(int location : plainTileLocations){
-            boardActions.put(location, new PlainTileAction(location));
+            tileActions.put(location, new PlainTileAction(location));
         }
     }
 
     private void setupGoToTiles(){
         // Ladder Tiles
-        boardActions.put(1, new GoToAction(38));
-        boardActions.put(4, new GoToAction(14));
-        boardActions.put(9, new GoToAction(31));
-        boardActions.put(21, new GoToAction(42));
-        boardActions.put(28, new GoToAction(84));
-        boardActions.put(36, new GoToAction(44));
-        boardActions.put(51, new GoToAction(67));
-        boardActions.put(71, new GoToAction(91));
-        boardActions.put(80, new GoToAction(100));
+        tileActions.put(1, new GoToAction(38));
+        tileActions.put(4, new GoToAction(14));
+        tileActions.put(9, new GoToAction(31));
+        tileActions.put(21, new GoToAction(42));
+        tileActions.put(28, new GoToAction(84));
+        tileActions.put(36, new GoToAction(44));
+        tileActions.put(51, new GoToAction(67));
+        tileActions.put(71, new GoToAction(91));
+        tileActions.put(80, new GoToAction(100));
 
         // Snake tiles
-        boardActions.put(16, new GoToAction(6));
-        boardActions.put(49, new GoToAction(11));
-        boardActions.put(48, new GoToAction(26));
-        boardActions.put(56, new GoToAction(53));
-        boardActions.put(62, new GoToAction(20));
-        boardActions.put(64, new GoToAction(60));
-        boardActions.put(87, new GoToAction(24));
-        boardActions.put(93, new GoToAction(73));
-        boardActions.put(95, new GoToAction(75));
-        boardActions.put(98, new GoToAction(78));
+        tileActions.put(16, new GoToAction(6));
+        tileActions.put(49, new GoToAction(11));
+        tileActions.put(48, new GoToAction(26));
+        tileActions.put(56, new GoToAction(53));
+        tileActions.put(62, new GoToAction(20));
+        tileActions.put(64, new GoToAction(60));
+        tileActions.put(87, new GoToAction(24));
+        tileActions.put(93, new GoToAction(73));
+        tileActions.put(95, new GoToAction(75));
+        tileActions.put(98, new GoToAction(78));
     }
 
 }
