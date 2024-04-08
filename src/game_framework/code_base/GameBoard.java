@@ -33,12 +33,18 @@ public abstract class GameBoard {
 
     public final void playRound(){
         for(Player player : players){
+            System.out.println("It's " + player.getName() + "'s turn, lets see how they do!");
             int playerCurrentLocation = player.getLocation();
+            // player performs their playing action (rolling the dice usually)
             int playerNewLocation = playerCurrentLocation + player.play();
-
+            // get the tile the player will be moving
             BoardActionCommand tileCommand = boardActions.get(playerNewLocation);
+            // perform that tiles actions with the player
             tileCommand.execute(player);
+            // update the player and their location
+            player.update(playerNewLocation);
 
+            System.out.println();
         }
     }
 }

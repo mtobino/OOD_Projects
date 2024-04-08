@@ -2,7 +2,7 @@ package game_framework.code_base;
 
 import java.util.Random;
 
-public class CanPlay extends PlayerAction{
+public class CanPlay implements PlayerAction{
     private static final Random rand = new Random();
 
     /**

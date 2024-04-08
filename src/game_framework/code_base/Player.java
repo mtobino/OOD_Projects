@@ -1,22 +1,32 @@
 package game_framework.code_base;
 
-public class Player {
+public abstract class Player {
 
     private final String name;
     private int location;
     protected PlayerAction playerAction;
 
     public Player(String name){
+        this(name, new CanPlay());
+    }
+
+    public Player(String name, PlayerAction playerAction){
         this.name = name;
         location = 0;
-        playerAction = new CanPlay();
+        this.playerAction = playerAction;
     }
 
     public int getLocation(){
         return location;
     }
     public void update(int location){
-        this.location = location;
+        if(location == this.location){
+            System.out.println("Player did not move.");
+        }
+        else{
+            System.out.println("Player moved to tile " + location);
+            this.location = location;
+        }
     }
 
     public  void setPlayerAction(PlayerAction playerAction){
@@ -25,8 +35,5 @@ public class Player {
     public String getName(){
         return name;
     }
-    public int play(){
-        return playerAction.play();
-    }
-
+    abstract public int play();
 }
