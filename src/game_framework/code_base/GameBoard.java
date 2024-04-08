@@ -45,6 +45,10 @@ public abstract class GameBoard {
         players.removeIf(player1 -> player1.equals(player));
     }
 
+    public void removePlayerByName(String name){
+        players.removeIf(player -> player.getName().equals(name));
+    }
+
     /**
      * Play a round of the game, subclasses determine how a round is played
      */
@@ -52,8 +56,17 @@ public abstract class GameBoard {
 
     /**
      * Play the game until it is won by someone. Once it is won, display the final results of the game
+     * If you have not added enough players, it will quit out before running the program.
      */
     public final void play(){
+        if(players.size() < 2){
+            System.out.println("You need at least 2 people to play a game silly :P");
+            return;
+        }
+        else if(players.size() > 4){
+            System.out.println("Too many cooks spoil the broth! Consider playing with no more than 4 people.");
+            return;
+        }
         while(!winner())
         {
             playRound();
