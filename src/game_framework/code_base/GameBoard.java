@@ -67,12 +67,15 @@ public abstract class GameBoard {
             System.out.println("Too many cooks spoil the broth! Consider playing with no more than 4 people.");
             return;
         }
+        setup();
         while(!winner())
         {
             playRound();
         }
         displayResults();
     }
+
+    protected abstract void setup();
 
     /**
      * Display the final results of the game. Subclasses determine how a player is displayed

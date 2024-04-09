@@ -8,8 +8,6 @@ public class SnakesAndLaddersBoard extends GameBoard {
 
     public SnakesAndLaddersBoard(){
         super();
-        setup();
-
     }
 
     @Override
@@ -47,7 +45,7 @@ public class SnakesAndLaddersBoard extends GameBoard {
             System.out.println();
         }
     }
-    private void setup(){
+    protected void setup(){
         setupPlainTiles();
         setupGoToTiles();
     }
