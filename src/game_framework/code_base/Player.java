@@ -7,11 +7,6 @@ public class Player {
     private final String name;
     private int location;
     protected PlayerAction playerAction;
-
-    public Player(String name){
-        this(name, new CanPlay());
-    }
-
     public Player(String name, PlayerAction playerAction){
         this.name = name;
         location = 0;
