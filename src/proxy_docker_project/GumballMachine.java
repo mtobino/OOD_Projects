@@ -1,6 +1,8 @@
 package proxy_docker_project;
 
-public class GumballMachine {
+import java.rmi.Remote;
+
+public class GumballMachine implements Remote {
  
 	State soldOutState;
 	State noQuarterState;
