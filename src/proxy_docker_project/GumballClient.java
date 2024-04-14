@@ -42,6 +42,7 @@ public class GumballClient {
     }
     public static void facilitateGumballCommunication(String serviceName, String location, Scanner scanner) throws MalformedURLException, NotBoundException, RemoteException {
         String name = serviceName + location;
+        System.out.println(name);
         GumballMachine gumballMachineProxy = (GumballMachine) Naming.lookup(name);
         int choice = -1;
         System.out.println("Location: " + location);

@@ -1,0 +1,9 @@
+FROM amazoncorretto:21
+
+COPY src/proxy_docker_project /proxy_docker_project
+
+WORKDIR /
+
+RUN javac $(find . -name "*.java")
+
+ENTRYPOINT java proxy_docker_project.GumballClient gumballservice
