@@ -8,11 +8,29 @@ import java.util.*;
 
 import static java.lang.Thread.sleep;
 
-
+/**
+ * Project is good for microservices
+ * using his code base as an example
+ * Client and PrimeSearcher
+ * Someone needs to access the PrimeSearcher (RMI on this service)
+ * Set up the RMI service in PrimeSearcher
+ * Create an RMI registry
+ * register the service with the registry
+ * <p>
+ * Gumball Machine Monitor Class which allows a user to watch over a variety of gumball machines and interact with them
+ *
+ * @author MAtthew Tobino
+ */
 public class GumballMonitor implements Monitor {
-    //private GumballMachine gumballMachine;
+    // Gumball Machine map where locations determine what machine you are viewing
     private Map<String, GumballMachine> gumballMachineMap;
 
+    /**
+     * Constructor for the Gumball Machine Monitor.
+     * Sets up the HashMap for Locations and Gumball Machines.
+     *
+     * @throws RemoteException If the rmi is not set up, the exception is thrown
+     */
     public GumballMonitor() throws RemoteException{
         gumballMachineMap = new HashMap<>();
     }
@@ -42,8 +60,6 @@ public class GumballMonitor implements Monitor {
     public void inform(String location, String status)
     {
         System.out.format("%s: %s\n", location, status);
-        GumballMachine gumballMachine = gumballMachineMap.get(location);
-        System.out.println(gumballMachine);
     }
 
     public String toString() {
@@ -104,6 +120,7 @@ public class GumballMonitor implements Monitor {
 
     public static void facilitateGumballCommunication(GumballMonitor gumballMonitor, String location, Scanner scanner) throws RemoteException, InterruptedException {
         GumballMachine gumballMachine = gumballMonitor.getGumballMachine(location);
+        // if the gumball machine was not set yet
         if(gumballMachine == null){
             System.out.println("Machine is out of service\n");
         }
@@ -111,13 +128,17 @@ public class GumballMonitor implements Monitor {
             int choice = -1;
             System.out.println("Location: " + location);
             while(choice != 3){
+
                 int count = gumballMachine.getCount();
+                // If the machine is out of gumball, display message and give enough wait time for the machine to be
+                // removed from the monitoring service
                 if(count <= 0){
                     System.out.println("This gumball machine is out of gumballs and will be deregistered shortly" +
                             ", returning you to the main menu...");
                     sleep(2500);
                     return;
                 }
+                // otherwise display and run actions with the gumball machine
                 System.out.println(count + " gumball left");
                 System.out.println("1. Enter a quarter\n2. Dispense a gumball\n3. Leave this location");
                 System.out.println("Enter you choice (1/2/3): ");

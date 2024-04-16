@@ -131,6 +131,7 @@ public class GumballMachine implements Serializable {
 				sleep(2000);
 			}
 			System.out.println("Monitor used up all the gumballs");
+			proxy.inform(location, "There are no more gumballs at this location, machine needs to be refilled");
 			proxy.deregister(location);
 
 		} catch (Exception e) {
