@@ -1,38 +1,38 @@
 package game_framework.driver.snakes_and_ladders;
 
 import game_framework.code_base.TileActionCommand;
-import game_framework.code_base.GameBoard;
+import game_framework.code_base.GameBoardModel;
 import game_framework.code_base.Player;
 
-public class SnakesAndLaddersBoard extends GameBoard {
+public class SnakesAndLaddersBoard extends GameBoardModel {
 
     public SnakesAndLaddersBoard(){
         super();
     }
 
     @Override
-    protected void displayResults() {
+    public Object getEndResults() {
         int boardSize = tileActions.size();
+        StringBuilder endString = new StringBuilder();
         for(Player player : players){
             if(player.getLocation() == boardSize){
-                System.out.println(player.getName() + " won the game!");
+                endString.append(player.getName()).append(" won the game!\n");
+                //System.out.println(player.getName() + " won the game!");
             }
             else{
-                System.out.println(player.getName() + " lost the game. They were at tile " + player.getLocation() + ".");
+                endString.append(player.getName()).append(" lost the game. They were at tile ").append(player.getLocation()).append(".\n");
+                //System.out.println(player.getName() + " lost the game. They were at tile " + player.getLocation() + ".");
             }
         }
+        return endString.toString();
+
     }
 
+
     @Override
-    protected void playRound(){
-        for(Player player : players){
-            System.out.println("It's " + player.getName() + "'s turn, lets see how they do!");
-            System.out.println("They are starting this turn at tile " + player.getLocation());
-            int playerCurrentLocation = player.getLocation();
-            // player performs their playing action (rolling the dice usually)
-            int spin = player.play();
-            System.out.println(player.getName() + " spun a " + spin);
-            int playerNewLocation = playerCurrentLocation + spin;
+    public Object playRound(Player player, int roll){
+            // player new location is based upon the players current location and the player's roll
+            int playerNewLocation = player.getLocation() + roll;
             // adjust player's new location for cases of going over the winner tile in Snakes and ladders
             // or looping back to the start for Monopoly
             playerNewLocation = adjustPlayerNewLocation(playerNewLocation, player);
@@ -42,15 +42,22 @@ public class SnakesAndLaddersBoard extends GameBoard {
             playerNewLocation = tileCommand.execute(player);
             // update the player and their location
             player.update(playerNewLocation);
-            System.out.println();
-        }
+            return playerNewLocation;
+
     }
-    protected void setup(){
+
+    @Override
+    public boolean verifyPartySize() {
+        int size = players.size();
+        return size >= 2 && size <= 4;
+    }
+
+    public void setup(){
         setupPlainTiles();
         setupGoToTiles();
     }
     @Override
-    protected boolean winner()
+    public boolean winner()
     {
         int boardSize = tileActions.size();
         boolean winner = false;

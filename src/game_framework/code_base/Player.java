@@ -17,13 +17,14 @@ public class Player {
         return location;
     }
     public void update(int location){
-        if(location == this.location){
-            System.out.println("Player did not move.");
-        }
-        else{
-            System.out.println("Player moved to tile " + location);
-            this.location = location;
-        }
+//        if(location == this.location){
+//            //System.out.println("Player did not move.");
+//        }
+//        else{
+//            //System.out.println("Player moved to tile " + location);
+//            this.location = location;
+//        }
+        this.location = location;
     }
 
     public  void setPlayerAction(PlayerAction playerAction){
@@ -47,6 +48,15 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(name, location, playerAction);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", location=" + location +
+                ", playerAction=" + playerAction +
+                '}';
     }
 }
 

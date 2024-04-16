@@ -5,14 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class GameBoard {
+public abstract class GameBoardModel {
     protected Map<Integer, TileActionCommand> tileActions;
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     protected List<Player> players;
 
     /**
      * Constructor for generic game board
      */
-    public GameBoard(){
+    public GameBoardModel(){
         tileActions = new HashMap<>();
         players = new ArrayList<>();
     }
@@ -45,49 +50,62 @@ public abstract class GameBoard {
         players.removeIf(player1 -> player1.equals(player));
     }
 
+    /**
+     * Remove a player from the game by name
+     *
+     * @param name  The name of the player being removed
+     */
     public void removePlayerByName(String name){
         players.removeIf(player -> player.getName().equals(name));
     }
 
     /**
      * Play a round of the game, subclasses determine how a round is played
+     *
+     * @return obj  A generic stand in for a game data object that could contain more information for a view to use
      */
-    protected abstract void playRound();
+    public abstract Object playRound(Player player, int roll);
 
     /**
      * Play the game until it is won by someone. Once it is won, display the final results of the game
      * If you have not added enough players, it will quit out before running the program.
      */
-    public final void play(){
-        if(players.size() < 2){
-            System.out.println("You need at least 2 people to play a game silly :P");
-            return;
-        }
-        else if(players.size() > 4){
-            System.out.println("Too many cooks spoil the broth! Consider playing with no more than 4 people.");
-            return;
-        }
-        setup();
-        while(!winner())
-        {
-            playRound();
-        }
-        displayResults();
-    }
+//    public final void play(){
+//        if(!verifyPartySize()){
+//            System.out.println("Your player count is off!\nCheck your rule book to see how many players you need" +
+//                    "or are allowed to have.");
+//            return;
+//        }
+//        setup();
+//        while(!winner())
+//        {
+//            playRound();
+//        }
+//        displayResults();
+//    }
 
-    protected abstract void setup();
+    /**
+     * Verify the party size of the game
+     *
+     * @return  true iff the partu size is the correct size
+     */
+    public abstract boolean verifyPartySize();
+
+    public abstract void setup();
 
     /**
      * Display the final results of the game. Subclasses determine how a player is displayed
+     *
+     * @return result   The end result of the game, could be a game data object
      */
-    protected abstract void displayResults();
+    public abstract Object getEndResults();
 
     /**
      * Returns true iff someone has won the game, otherwise it will be false
      *
      * @return true iff some player won the game.
      */
-    protected abstract boolean winner();
+    public abstract boolean winner();
 
     /**
      * Adjust the player's new position based on the board and how it functions
