@@ -66,10 +66,10 @@ public abstract class GameBoardModel {
      */
     public abstract Object playRound(Player player, int roll);
 
-    /**
+    /*
      * Play the game until it is won by someone. Once it is won, display the final results of the game
      * If you have not added enough players, it will quit out before running the program.
-     */
+     *
 //    public final void play(){
 //        if(!verifyPartySize()){
 //            System.out.println("Your player count is off!\nCheck your rule book to see how many players you need" +
@@ -83,7 +83,7 @@ public abstract class GameBoardModel {
 //        }
 //        displayResults();
 //    }
-
+*/
     /**
      * Verify the party size of the game
      *
