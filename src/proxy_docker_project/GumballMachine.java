@@ -1,8 +1,13 @@
 package proxy_docker_project;
 
-import java.rmi.Remote;
+import java.io.Serializable;
+import java.rmi.Naming;
+import java.util.Random;
+import java.util.Scanner;
 
-public class GumballMachine implements Remote {
+import static java.lang.Thread.sleep;
+
+public class GumballMachine implements Serializable {
  
 	State soldOutState;
 	State noQuarterState;
@@ -82,6 +87,10 @@ public class GumballMachine implements Remote {
     public State getWinnerState() {
         return winnerState;
     }
+	public void update(int count, State state){
+		this.count = count;
+		this.state = state;
+	}
  
 	public String toString() {
 		StringBuffer result = new StringBuffer();
@@ -94,5 +103,40 @@ public class GumballMachine implements Remote {
 		result.append("\n");
 		result.append("Machine is " + state + "\n");
 		return result.toString();
+	}
+
+	public static void main(String[] args){
+		Random random = new Random();
+		GumballMachine gumballMachine = new GumballMachine(random.nextInt(5, 15));
+		String remoteServerIP = args[0];
+		String serviceName = Monitor.name;
+
+		try (Scanner scanner = new Scanner(System.in)){
+			String name = "rmi://" + remoteServerIP + "/" + serviceName;
+
+			// First look up the remote object
+			// The RMI api returns a proxy object if lookup is successful
+			Monitor proxy = (Monitor) Naming.lookup(name);
+
+			System.out.print("Where is this machine located: ");
+			String location = scanner.next();
+
+			proxy.register(location, gumballMachine);
+
+			//System.out.println("Current Gumball Machine status");
+			//proxy.inform(location, "I exist");
+			while (gumballMachine.count > 0){
+				GumballMachine local = proxy.getGumballMachine(location);
+				gumballMachine.update(local.getCount(), local.getState());
+				sleep(2000);
+			}
+			System.out.println("Monitor used up all the gumballs");
+			proxy.deregister(location);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
 	}
 }

@@ -44,28 +44,6 @@ public class GumballClient {
         String name = serviceName + location;
         System.out.println(name);
         GumballMachine gumballMachineProxy = (GumballMachine) Naming.lookup(name);
-        int choice = -1;
-        System.out.println("Location: " + location);
-        while(choice != 3){
-            System.out.println(gumballMachineProxy.getCount() + "gumball left");
-            System.out.println("1. Enter a quarter\n2. Dispense a gumball\n3. Leave this location");
-            System.out.println("Enter you choice (1/2/3)");
-            choice = scanner.nextInt();
-            switch(choice){
-                case 1:
-                    gumballMachineProxy.insertQuarter();
-                    break;
-                case 2:
-                    gumballMachineProxy.turnCrank();
-                    break;
-                case 3:
-                    continue;
-                default:
-                    System.out.println("Oops you entered a number that isn't an option");
-                    break;
-            }
-        }
-
 
     }
 }

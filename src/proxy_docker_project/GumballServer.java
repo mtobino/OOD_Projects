@@ -16,23 +16,23 @@ public class GumballServer {
             // Create the registry for rmi
             Registry registry = LocateRegistry.createRegistry(1099);
 
-            // create the gumball machines for each location
-            GumballMachine phillyGumballMachine = new GumballMachine(random.nextInt(5,30));
-            GumballMachine atlantaGumballMachine = new GumballMachine(random.nextInt(5,30));
-            GumballMachine nycGumballMachine = new GumballMachine(random.nextInt(5,30));
-
-            // create the stubs for proxying
-            GumballMachine phillyStub = (GumballMachine) UnicastRemoteObject
-                    .exportObject(phillyGumballMachine, 0);
-            GumballMachine atlantaStub = (GumballMachine) UnicastRemoteObject
-                    .exportObject(atlantaGumballMachine, 0);
-            GumballMachine nycStub = (GumballMachine) UnicastRemoteObject
-                    .exportObject(nycGumballMachine, 0);
-
-            // bind the stubs in the registry
-            registry.rebind(PHILLY, phillyStub);
-            registry.rebind(ATL, atlantaStub);
-            registry.rebind(NYC, nycStub);
+//            // create the gumball machines for each location
+//            GumballMachine phillyGumballMachine = new GumballMachine(random.nextInt(5,30));
+//            GumballMachine atlantaGumballMachine = new GumballMachine(random.nextInt(5,30));
+//            GumballMachine nycGumballMachine = new GumballMachine(random.nextInt(5,30));
+//
+//            // create the stubs for proxying
+//            GumballMachine phillyStub = (GumballMachine) UnicastRemoteObject
+//                    .exportObject(phillyGumballMachine, 0);
+//            GumballMachine atlantaStub = (GumballMachine) UnicastRemoteObject
+//                    .exportObject(atlantaGumballMachine, 0);
+//            GumballMachine nycStub = (GumballMachine) UnicastRemoteObject
+//                    .exportObject(nycGumballMachine, 0);
+//
+//            // bind the stubs in the registry
+//            registry.rebind(PHILLY, phillyStub);
+//            registry.rebind(ATL, atlantaStub);
+//            registry.rebind(NYC, nycStub);
 
 
 

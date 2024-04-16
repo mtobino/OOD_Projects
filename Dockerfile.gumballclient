@@ -6,4 +6,4 @@ WORKDIR /
 
 RUN javac $(find . -name "*.java")
 
-ENTRYPOINT java proxy_docker_project.GumballClient gumballservice
+ENTRYPOINT java proxy_docker_project.GumballMachine gumballservice
